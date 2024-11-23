@@ -1,3 +1,4 @@
+import flowbitePlugin from "flowbite/plugin";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -6,6 +7,7 @@ export default {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/flowbite-react/**/*.js",
   ],
   theme: {
   	extend: {
@@ -20,5 +22,7 @@ export default {
   		}
   	}
   },
-  plugins: [ require('@tailwindcss/forms'), require("tailwindcss-animate")],
+  plugins: [ require('@tailwindcss/forms'),
+    flowbitePlugin,
+    require("tailwindcss-animate")],
 } satisfies Config;

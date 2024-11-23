@@ -25,7 +25,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-blue-600 border-b border-blue-400/30">
+    <header className="fixed top-0 bg-white border-b border-blue-400/30 w-full z-50">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8 ">
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
@@ -41,7 +41,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5  text-gray-50"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5  text-gray-800"
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="size-6" />
@@ -49,13 +49,13 @@ export default function Navbar() {
         </div>
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           
-          <a href="#" className="text-sm/6 font-semibold text-gray-50">
+          <a href="#" className="text-sm/6 font-semibold text-gray-800">
             Features
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-50">
+          <a href="#" className="text-sm/6 font-semibold text-gray-800">
             Marketplace
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-50">
+          <a href="#" className="text-sm/6 font-semibold text-gray-800">
             Company
           </a>
         </PopoverGroup>
@@ -80,7 +80,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="-m-2.5 rounded-md p-2.5  text-gray-50"
+              className="-m-2.5 rounded-md p-2.5  text-gray-800"
             >
               <span className="sr-only">Close menu</span>
               <XMarkIcon aria-hidden="true" className="size-6" />
