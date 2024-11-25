@@ -15,3 +15,10 @@ body {
   --radius: 0.5rem;
  }
 }
+
+.linear-bg {
+  background:url("/bg.jpg");
+  background-size: cover ;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

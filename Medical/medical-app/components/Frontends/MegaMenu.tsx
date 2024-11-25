@@ -15,6 +15,7 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { title } from "process"
+import { usePathname } from "next/navigation"
 
 
 
@@ -125,6 +126,7 @@ const megaMenu = [
 ]
 
 export default function MegaMenu() {
+ 
   return (
     <NavigationMenu className="bg-white">
       <NavigationMenuList className="space-x-4">

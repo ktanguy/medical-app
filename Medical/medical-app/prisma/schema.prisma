@@ -1,0 +1,92 @@
+ 
+ 
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  DOCTOR
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String   @unique
+  phone         String
+  emailVerified DateTime?
+  image         String?
+  role          UserRole  @default(USER)
+  password      String
+  accounts      Account[]
+  sessions      Session[]
+  isVerfied     Boolean   @default(false)
+  token         Int
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+/// The `Category` model represents a category of products in the medical app.
+/// 
+/// Fields:
+/// - `id` (String): The unique identifier for the category. It is automatically generated and mapped to the `_id` field in the database.
+/// - `title` (String): The title of the category.
+/// - `slug` (String): A unique slug for the category.
+/// - `imageUrl` (String, optional): The URL of the image representing the category.
+/// - `demoLink` (String, optional): A link to a demo related to the category.
+/// - `description` (String, optional): A description of the category.
+/// - `products` (Product[]): A list of products that belong to this category.
+/// - `createdAt` (DateTime): The timestamp when the category was created. It defaults to the current time.
+/// - `updatedAt` (DateTime, optional): The timestamp when the category was last updated. It is automatically set to the current time when the category is updated.
+
+/// The `Product` model represents a product in the medical app.
+/// 
+/// Fields:
+/// - `id`: The unique identifier for the product, automatically generated and mapped to `_id` in the database.
+/// - `title`: The title of the product.
+/// - `slug`: A unique slug for the product.
+/// - `price`: The price of the product, which is optional.
+/// - `qty`: The quantity of the product, which is optional.
+/// - `imageUrl`: The URL of the product's main image, which is optional.
+/// - `productImages`: An array of URLs for additional product images.
+/// - `features`: An array of features describing the product.
+/// - `description`: A description of the product, which is optional.
+/// - `categoryId`: The identifier for the category to which the product belongs, mapped to an ObjectId in the database.
+/// - `category`: The category to which the product belongs, with a relation defined by `categoryId` and `id`, and cascading updates and deletions.
+/// - `createdAt`: The timestamp when the product was created, with a default value of the current time.
+/// - `updatedAt`: The timestamp when the product was last updated, which is automatically set to the current time when the product is updated.
+
+ 
