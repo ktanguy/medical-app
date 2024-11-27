@@ -1,12 +1,16 @@
-import { BarChart, Folder, Grid2X2, Home, Plus, Settings } from "lucide-react";
+'use client';
+
+import { BarChart, Folder, Grid2X2, Home, Plus, Settings, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
 import LogoutButton from "./LogoutButton";
+import { Disclosure } from "@headlessui/react";
+import { usePathname } from "next/navigation";
 
- 
-export default async function Sidebar() {
-  
+export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <div className="hidden xl:flex xl:w-64 xl:flex-col border-r border-gray-300">
       <div className="flex flex-col pt-5 overflow-y-auto">
@@ -28,7 +32,11 @@ export default async function Sidebar() {
               <nav className="flex-1 mt-4 space-y-1">
                 <Link
                   href="/dashboard"
-                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
+                  className={`flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 rounded-lg group ${
+                    pathname === "/dashboard"
+                      ? "bg-gray-200 text-gray-900"
+                      : "text-gray-900 hover:bg-gray-200"
+                  }`}
                 >
                   <Home className="flex-shrink-0 w-5 h-5 mr-4" />
                   Dashboard
@@ -36,14 +44,22 @@ export default async function Sidebar() {
                 <Link
                   href="/dashboard/categories"
                   title="categories"
-                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
+                  className={`flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 rounded-lg group ${
+                    pathname === "/dashboard/categories"
+                      ? "bg-gray-200 text-gray-900"
+                      : "text-gray-900 hover:bg-gray-200"
+                  }`}
                 >
                   <Grid2X2 className="flex-shrink-0 w-5 h-5 mr-4" />
                   Categories
                 </Link>
                 <Link
                   href="/dashboard/products"
-                  className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
+                  className={`flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 rounded-lg group ${
+                    pathname === "/dashboard/products"
+                      ? "bg-gray-200 text-gray-900"
+                      : "text-gray-900 hover:bg-gray-200"
+                  }`}
                 >
                   <Folder className="flex-shrink-0 w-5 h-5 mr-4" />
                   Products
@@ -51,20 +67,46 @@ export default async function Sidebar() {
               </nav>
             </div>
           </div>
- 
+
           <div className="pb-4 mt-12">
-            <nav className="flex-1 space-y-1">
-              <Link
-                href="#"
-                title=""
-                className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group"
-              >
-                <Settings className="flex-shrink-0 w-5 h-5 mr-4" />
-                Settings
-              </Link>
- 
-              <LogoutButton />
-            </nav>
+            <Disclosure>
+              {({ open }) => (
+                <>
+                  <Disclosure.Button className="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 rounded-lg hover:bg-gray-200 group w-full">
+                    <Settings className="flex-shrink-0 w-5 h-5 mr-4" />
+                    <span>Settings</span>
+                    <ChevronDown
+                      className={`${
+                        open ? "transform rotate-180" : ""
+                      } w-5 h-5 ml-auto`}
+                    />
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                    <Link
+                      href="/settings/profile"
+                      className={`block px-4 py-2 rounded-lg ${
+                        pathname === "/settings/profile"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-gray-900 hover:bg-gray-200"
+                      }`}
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/settings/account"
+                      className={`block px-4 py-2 rounded-lg ${
+                        pathname === "/settings/account"
+                          ? "bg-gray-200 text-gray-900"
+                          : "text-gray-900 hover:bg-gray-200"
+                      }`}
+                    >
+                      Account
+                    </Link>
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
+            <LogoutButton />
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import LoginForm from '@/components/Dashboard/Auth/LoginForm'
+import LoginForm from '@/components/Auth/LoginForm'
 import React from 'react'
 
 export default function page() {

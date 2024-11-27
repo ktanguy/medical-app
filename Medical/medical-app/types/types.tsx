@@ -1,3 +1,5 @@
+import { UserRole } from "@prisma/client";
+
 export type ServiceProps = {
 
     title: string;
@@ -13,6 +15,7 @@ export type ServiceProps = {
     email: string;
     password: string;
     phonenumber: string;
+    role: UserRole;
   };
   export type LoginInputProps = {
 

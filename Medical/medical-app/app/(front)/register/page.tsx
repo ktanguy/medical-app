@@ -1,5 +1,5 @@
-import LoginForm from '@/components/Dashboard/Auth/LoginForm'
-import RegisterForm from '@/components/Dashboard/Auth/RegisterForm'
+import LoginForm from '@/components/Auth/LoginForm'
+import RegisterForm from '@/components/Auth/RegisterForm'
 import React from 'react'
 
 export default function page() {
